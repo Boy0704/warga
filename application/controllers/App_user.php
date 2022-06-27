@@ -1,0 +1,148 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class App_user extends CI_Controller
+{
+    var $judul_page = 'Master User';
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('App_user_model');
+        $this->load->library('form_validation');
+    }
+
+    public function index()
+    {
+        $app_user = $this->App_user_model->get_all();
+
+        $data = array(
+            'app_user_data' => $app_user,
+            'judul_page' => $this->judul_page,
+            'konten' => 'app_user/app_user_list',
+        );
+        $this->load->view('v_index', $data);
+    }
+
+    
+
+    public function create() 
+    {
+        $data = array(
+            'judul_page' => $this->judul_page,
+            'konten' => 'app_user/app_user_form',
+            'judul_form' => 'Tambah '.$this->judul_page,
+            'button' => 'Simpan',
+            'action' => site_url('app_user/create_action'),
+	    'id_user' => set_value('id_user'),
+	    'nama_lengkap' => set_value('nama_lengkap'),
+	    'username' => set_value('username'),
+	    'password' => set_value('password'),
+	    'level' => set_value('level'),
+	    'foto' => set_value('foto'),
+	);
+        $this->load->view('v_index', $data);
+    }
+    
+    public function create_action() 
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->create();
+        } else {
+
+            $img = upload_gambar_biasa('user', 'image/user/', 'jpg|png|jpeg', 10000, 'foto');
+
+            $data = array(
+		'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
+		'username' => $this->input->post('username',TRUE),
+		'password' => md5($this->input->post('password',TRUE)),
+		'level' => $this->input->post('level',TRUE),
+		'foto' => $img,
+	    );
+
+            $this->App_user_model->insert($data);
+            $this->session->set_flashdata('message', message('success','Data berhasil disimpan'));
+            redirect(site_url('app_user'));
+        }
+    }
+    
+    public function update($id) 
+    {
+        $row = $this->App_user_model->get_by_id($id);
+
+        if ($row) {
+            $data = array(
+                'judul_page' => $this->judul_page,
+                'konten' => 'app_user/app_user_form',
+                'judul_form' => 'Ubah '.$this->judul_page,
+                'button' => 'Update',
+                'action' => site_url('app_user/update_action'),
+		'id_user' => set_value('id_user', $row->id_user),
+		'nama_lengkap' => set_value('nama_lengkap', $row->nama_lengkap),
+		'username' => set_value('username', $row->username),
+		'password' => set_value('password', $row->password),
+		'level' => set_value('level', $row->level),
+		'foto' => set_value('foto', $row->foto),
+	    );
+            $this->load->view('v_index', $data);
+        } else {
+            $this->session->set_flashdata('message', message('danger','Data tidak ditemukan'));
+            redirect(site_url('app_user'));
+        }
+    }
+    
+    public function update_action() 
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->update($this->input->post('id_user', TRUE));
+        } else {
+            $data = array(
+		'nama_lengkap' => $this->input->post('nama_lengkap',TRUE),
+		'username' => $this->input->post('username',TRUE),
+		'password' => $retVal = ($this->input->post('password') == '') ? $_POST['password_old'] : md5($this->input->post('password',TRUE)),
+		'level' => $this->input->post('level',TRUE),
+		'foto' => $retVal = ($_FILES['foto']['name'] == '') ? $_POST['foto_old'] : upload_gambar_biasa('user', 'image/user/', 'jpeg|png|jpg|gif', 10000, 'foto'),
+	    );
+
+            $this->App_user_model->update($this->input->post('id_user', TRUE), $data);
+            $this->session->set_flashdata('message', message('success','Data berhasil diupdate'));
+            redirect(site_url('app_user'));
+        }
+    }
+    
+    public function delete($id) 
+    {
+        $row = $this->App_user_model->get_by_id($id);
+
+        if ($row) {
+            $this->App_user_model->delete($id);
+            $this->session->set_flashdata('message', message('success','Data berhasil dihapus'));
+            redirect(site_url('app_user'));
+        } else {
+            $this->session->set_flashdata('message', message('danger','Data tidak ditemukan'));
+            redirect(site_url('app_user'));
+        }
+    }
+
+    public function _rules() 
+    {
+	$this->form_validation->set_rules('nama_lengkap', 'nama lengkap', 'trim|required');
+	$this->form_validation->set_rules('username', 'username', 'trim|required');
+	$this->form_validation->set_rules('level', 'level', 'trim|required');
+
+	$this->form_validation->set_rules('id_user', 'id_user', 'trim');
+	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+}
+
+/* End of file App_user.php */
+/* Location: ./application/controllers/App_user.php */
+/* Please DO NOT modify this information : */
+/* Generated by Boy Kurniawan 2022-02-05 15:30:01 */
+/* https://jualkoding.com */
