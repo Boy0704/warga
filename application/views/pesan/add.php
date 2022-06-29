@@ -13,12 +13,17 @@
                          <label for="penerima" class="col-sm-3
                          col-form-label">Penerima</label>
                          <div class="col-sm-9">
+                              <?php if ($this->session->userdata('level') == 'admin'): ?>
                               <select name="penerima" class="single-select" required>
                                    <option value="">Pilih NIK</option>
                                    <?php foreach ($this->db->get('warga')->result() as $rw) : ?>
                                    <option value="<?php echo $rw->nik ?>"><?php echo $rw->nama ?></option>
                                    <?php endforeach ?>
                               </select>
+                              <?php else: ?>
+                              <input type="text" class="form-control" name="penerima" id="penerima" value="admin" readonly/>
+                              <?php endif ?>
+                              
                          </div>
                     </div>
                     <div class="row mb-3">

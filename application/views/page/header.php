@@ -339,7 +339,7 @@
                               <li><a class="dropdown-item" href="app/profil_admin/<?php echo $this->session->userdata('id_user'); ?>"><i
                                         class="bx bx-user"></i><span>Profile</span></a>
                          <?php else: ?>
-                              <li><a class="dropdown-item" href="app/profil"><i
+                              <li><a class="dropdown-item" href="app/profil_admin/<?php echo $this->session->userdata('id_user'); ?>"><i
                                         class="bx bx-user"></i><span>Profile</span></a>
                          <?php endif ?>
                          </li>

@@ -71,6 +71,29 @@
                     <div class="menu-title">Pesan</div>
                </a>
           </li>
+          <?php else: ?>
+          <li>
+               <a href="warga">
+                    <div class="parent-icon"><i class='bx bx-file'></i>
+                    </div>
+                    <div class="menu-title">Data Warga</div>
+               </a>
+          </li>
+          <li>
+               <a href="lapor_diri">
+                    <div class="parent-icon"><i class='bx bx-file'></i>
+                    </div>
+                    <div class="menu-title">Lapor Diri</div>
+               </a>
+          </li>
+          <li>
+               <a href="pesan">
+                    <div class="parent-icon"><i class='bx bx-chat'></i>
+                    </div>
+                    <div class="menu-title">Pesan</div>
+               </a>
+          </li>
+
           <?php endif ?>
      </ul>
      <!--end navigation-->

@@ -71,6 +71,13 @@ class Warga extends CI_Controller
 	    );
 
             $this->Warga_model->insert($data);
+            $this->db->insert('app_user', array(
+            	'nama_lengkap' => $this->input->post('nama'),
+            	'username' => $this->input->post('nik'),
+            	'password' => md5( $this->input->post('password') ),
+            	'level' => 'user',
+            	'foto' => 'no_image.png'
+            ));
             $this->session->set_flashdata('message', message('success','Data berhasil disimpan'));
             redirect(site_url('warga'));
         }
@@ -138,6 +145,8 @@ class Warga extends CI_Controller
 
         if ($row) {
             $this->Warga_model->delete($id);
+            $this->db->where('username', $row->nik);
+            $this->db->delete('app_user');
             $this->session->set_flashdata('message', message('success','Data berhasil dihapus'));
             redirect(site_url('warga'));
         } else {

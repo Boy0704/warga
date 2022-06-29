@@ -25,6 +25,11 @@
                     </thead>
                     <tbody><?php
                         $no = 1;
+                        if ($this->session->userdata('level') == 'user') {
+                            $username = $this->session->userdata('username');
+                            $this->db->where('nik', $username);
+                            $lapor_diri_data = $this->db->get('lapor_diri')->result();
+                        }
                         foreach ($lapor_diri_data as $lapor_diri)
                         {
                             ?>

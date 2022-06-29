@@ -16,7 +16,12 @@
                          <div class="col-sm-9">
                               <select name="nik" class="single-select" required>
                                    <option value="">Pilih NIK</option>
-                                   <?php foreach ($this->db->get('warga')->result() as $rw) : ?>
+                                   <?php 
+                                   if ($this->session->userdata('level') == 'user') {
+                                      $username = $this->session->userdata('username');
+                                      $this->db->where('nik', $username);
+                                  }
+                                   foreach ($this->db->get('warga')->result() as $rw) : ?>
                                    <option value="<?php echo $rw->nik ?>"><?php echo $rw->nama ?></option>
                                    <?php endforeach ?>
                               </select>

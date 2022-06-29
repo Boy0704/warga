@@ -21,7 +21,7 @@
      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
      <link href="assets/css/app.css" rel="stylesheet">
      <link href="assets/css/icons.css" rel="stylesheet">
-     <title>Glowza - Login</title>
+     <title>Halaman - Login</title>
 </head>
 
 <body class="bg-login">

@@ -25,8 +25,17 @@
                     <tbody>
                          <?php 
                          $no = 1;
-                         $this->db->order_by('id_pesan', 'desc');
-                         $pesan = $this->db->get('pesan');
+                         
+                         if ($this->session->userdata('level') == 'user') {
+                            $username = $this->session->userdata('username');
+                            $this->db->where('dari', $username);
+                            $this->db->or_where('ke', $username);
+                            $pesan = $this->db->get('pesan');
+                         } else {
+                              $this->db->order_by('id_pesan', 'desc');
+                              $pesan = $this->db->get('pesan');
+                         }
+                         
                          foreach ($pesan->result() as $psn): ?>
                               <tr>
                                    <td><?php echo $no ?></td>

@@ -3,7 +3,9 @@
             <div class="card-body">
                 <div class="row mb-4">
                     <div class="col">
+                        <?php if ($this->session->userdata('level') == 'admin'): ?>
                         <a href="warga/create" class="btn btn-primary"><i class="bx bx-plus mr-1"></i>Tambah</a>
+                        <?php endif ?>
                         <!-- <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#importModal"><i class="bx bx-upload mr-1"></i>Import Data</button> -->
                         <!-- Modal -->
                         <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModal" aria-hidden="true">
@@ -61,6 +63,11 @@
                         </thead>
                         <tbody><?php
                         $no = 1;
+                        if ($this->session->userdata('level') == 'user') {
+                            $username = $this->session->userdata('username');
+                            $this->db->where('nik', $username);
+                            $warga_data = $this->db->get('warga')->result();
+                        }
                         foreach ($warga_data as $warga)
                         {
                             ?>
@@ -79,8 +86,10 @@
 
                         <a href="warga/update/<?php echo $warga->id_warga ?>" title="Update Data" class="btn btn-sm btn-primary"><i class="bx bx-edit me-0"></i>
                         </a>
+                        <?php if ($this->session->userdata('level') == 'admin'): ?>
                         <a href="warga/delete/<?php echo $warga->id_warga ?>" title="Hapus Data" onclick="javasciprt: return confirm('Yakin akan hapus data ini ?')" class="btn btn-sm btn-danger"><i class="bx bx-trash-alt me-0"></i>
                         </a>
+                        <?php endif ?>
             
 			</td>
 		</tr>
