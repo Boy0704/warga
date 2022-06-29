@@ -74,7 +74,7 @@ class Warga extends CI_Controller
             $this->db->insert('app_user', array(
             	'nama_lengkap' => $this->input->post('nama'),
             	'username' => $this->input->post('nik'),
-            	'password' => md5( $this->input->post('password') ),
+            	'password' => md5("123456"),
             	'level' => 'user',
             	'foto' => 'no_image.png'
             ));
