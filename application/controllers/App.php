@@ -23,6 +23,25 @@ class App extends CI_Controller {
           $this->load->view('v_index', $data);
      }
 
+     public function pencarian()
+     {
+          if ($this->session->userdata('level') == '') {
+               redirect('login');
+          }
+          $level = $this->session->userdata('level');
+          if ($level == 'admin' || $level == 'superadmin') {
+               $konten = 'pencarian';
+          } else {
+               $konten = 'pencarian';
+          }
+
+          $data = array(
+               'judul_page' => "Pencarian",
+               'konten' => $konten,
+          );
+          $this->load->view('v_index', $data);
+     }
+
 
      public function update_foto($id_member)
      {

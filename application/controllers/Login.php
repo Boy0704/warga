@@ -11,6 +11,31 @@ class Login extends CI_Controller {
           
      }
 
+     public function register()
+     {
+          $this->load->view('register');
+     }
+
+     public function simpan_pendaftaran()
+     {
+          $nik = $this->input->post('nik');
+          $password = $this->input->post('password');
+          $nama = $this->input->post('nama_depan').' '.$this->input->post('nama_belakang');
+          $this->db->insert('warga', array(
+               'nik' => $nik,
+               'nama' => $nama,
+          ));
+          $this->db->insert('app_user', array(
+               'nama_lengkap' => $nama,
+               'username' => $nik,
+               'password' => md5($password),
+               'level' => 'user',
+               'foto' => 'no_image.png'
+            ));
+          $this->session->set_flashdata('pesan', alert_biasa('Pendaftaran berhasil','success'));
+                    redirect("login");
+     }
+
      public function auth()
      {
           $username = $this->input->post('username');

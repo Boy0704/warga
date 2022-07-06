@@ -66,16 +66,10 @@
                                                             </div>
                                                        </div>
                                                        <div class="col-md-6">
-                                                            <div class="form-check form-switch">
-                                                                 <input class="form-check-input" type="checkbox"
-                                                                      id="flexSwitchCheckChecked">
-                                                                 <label class="form-check-label"
-                                                                      for="flexSwitchCheckChecked">Remember Me</label>
-                                                            </div>
+                                                            
                                                        </div>
                                                        <div class="col-md-6 text-end"> <a
-                                                                 href="authentication-forgot-password.html">Forgot
-                                                                 Password ?</a>
+                                                                 href="login/register">Pendaftaran</a>
                                                        </div>
                                                        <div class="col-12">
                                                             <div class="d-grid">

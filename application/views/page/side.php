@@ -23,6 +23,13 @@
 		
 		<?php if($this->session->userdata('level') == 'admin'): ?>
           <li>
+               <a href="app/pencarian">
+                    <div class="parent-icon"><i class='bx bx-file'></i>
+                    </div>
+                    <div class="menu-title">Filter </div>
+               </a>
+          </li>
+          <li>
                <a href="agama">
                     <div class="parent-icon"><i class='bx bx-file'></i>
                     </div>
