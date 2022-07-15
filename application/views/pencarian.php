@@ -33,6 +33,7 @@
                          <label for="jk" class="col-sm-3 col-form-label">Jenis Kelamin</label>
                          <div class="col-sm-9">
                               <select class="form-control" name="jk">
+                                   <option value="">Pilih Kelamin</option>
                                    <option value="Laki-laki">Laki-laki</option>
                                    <option value="Perempuan">Perempuan</option>
                               </select>
@@ -56,6 +57,7 @@
                          <label for="id_agama" class="col-sm-3 col-form-label">Agama</label>
                          <div class="col-sm-9">
                               <select class="form-control" name="id_agama">
+                                   <option value="">Pilih Agama</option>
                                    <?php foreach ($this->db->get('agama')->result() as $rw): ?>
                                    <option value="<?php echo $rw->id_agama ?>">
                                         <?php echo $rw->agama ?></option>
@@ -67,6 +69,7 @@
                          <label for="usia" class="col-sm-3 col-form-label">RT/RW</label>
                          <div class="col-sm-3">
                               <select name="rt" class="form-control">
+                                   <option value="">Pilih RT</option>
                               	<?php foreach ($this->db->get('rt')->result() as $rt): ?>
                               		<option value="<?php echo $rt->id_rt ?>"><?php echo $rt->rt ?></option>
                               	<?php endforeach ?>
@@ -74,6 +77,7 @@
                          </div>
                          <div class="col-sm-3">
                               <select name="rw" class="form-control">
+                                   <option value="">Pilih RW</option>
                               	<?php foreach ($this->db->get('rw')->result() as $rw): ?>
                               		<option value="<?php echo $rw->id_rw ?>"><?php echo $rw->rw ?></option>
                               	<?php endforeach ?>
@@ -124,6 +128,7 @@
                    $this->db->or_where('b.rw', $this->input->get('rw'));
                    $this->db->like('b.alamat', $this->input->get('alamat'));
                    $data = $this->db->get()->result();
+                   //log_r($this->db->last_query());
                    foreach ($data as $row)
                    {
                        ?>
@@ -136,9 +141,9 @@
                          <td><?php echo get_data('rt','id_rt',$row->rt,'rt') ?></td>
                          <td><?php echo get_data('rw','id_rw',$row->rw,'rw') ?></td>
                          <td>
-                              <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-outline-info px-1">Lihat Profil</a>
+                              <a data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $row->id_warga ?>" class="btn btn-outline-info px-1">Lihat Profil</a>
                               <!-- Modal -->
-                              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal fade" id="exampleModal<?php echo $row->id_warga ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                    <div class="modal-dialog">
                                         <div class="modal-content">
                                              <div class="modal-header">
