@@ -106,15 +106,6 @@
 <script type="text/javascript">
      $(document).ready(function() {
           var n = 1;
-          $("#id_nasabah").change(function(event) {
-               var nik      = $(this).select2().find(":selected").data("nik");
-               $('#nik').val(nik);
-               var nama      = $(this).select2().find(":selected").data("nama");
-               $('#nama').val(nama);
-               var alamat      = $(this).select2().find(":selected").data("alamat");
-               $('#alamat').val(alamat);
-          });
-
           $("#tambah").click(function(event) {
                event.preventDefault();
                n++;

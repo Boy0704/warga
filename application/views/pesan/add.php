@@ -34,6 +34,37 @@
                                    placeholder="Pesan"></textarea>
                          </div>
                     </div>
+
+                    <div class="row mb-3">
+                         <hr>
+
+                         <table class="table table-bordered">
+                              <thead>
+                                   <tr>
+                                        <th>Label</th>
+                                        <th>File</th>
+                                        <th>#</th>
+                                   </tr>
+                              </thead>
+                              <tbody class="upload">
+                                   <tr id="br1">
+                                        <td>
+                                             <input type="text" name="label[]" class="form-control" required>
+                                        </td>
+                                        <td>
+                                             <input type="file" name="files[]" class="form-control" required>
+                                        </td>
+                                        <td>
+                                             <a class="btn btn-xs btn-danger remove" onclick="remove('1')"><i
+                                                       class="bx bx-trash-alt me-0"></i></a>
+                                        </td>
+                                   </tr>
+                              </tbody>
+                         </table>
+                         <div style="text-align: right;">
+                              <a id="tambah" class="btn btn-info">Tambah Upload</a>
+                         </div>
+                    </div>
                     
                     <button type="submit" class="btn btn-primary"><i class="bx bx-save"></i>
                          Kirim</button>
@@ -46,4 +77,21 @@
 <script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
 <script>
      CKEDITOR.replace('pesan');
+</script>
+<script type="text/javascript">
+     $(document).ready(function() {
+          var n = 1;
+          $("#tambah").click(function(event) {
+               event.preventDefault();
+               n++;
+               $(".upload").append('<tr id="br'+n+'"><td><input type="text" name="label[]" class="form-control" required></td><td><input type="file" name="files[]" class="form-control" required></td><td><a onclick="remove('+n+')" class="btn btn-xs btn-danger remove"><i class="bx bx-trash-alt me-0"></i></a></td></tr>');
+          });
+
+     });
+
+     function remove(n) {
+          $("#br"+n).remove();
+     }
+
+     
 </script>

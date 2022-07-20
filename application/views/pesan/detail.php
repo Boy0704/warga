@@ -41,6 +41,29 @@ $psn = $this->db->get('pesan')->row();
                          <?php echo $psn->created_at ?>
                     </div>
                </div>
+
+               <div class="row mb-3">
+                    <label for="keterangan" class="col-sm-3
+                    col-form-label">Dokumen Terlampir</label>
+                    <div class="col-sm-9">
+                         
+                         <table class="table table-bordered">
+                              <tr>
+                                   <th>Judul</th>
+                                   <th>Link</th>
+                              </tr>
+                              <?php foreach ($this->db->get_where('dokumen_pesan', ['id_pesan'=>$psn->id_pesan])->result() as $rw): ?>
+                                   <tr>
+                                        <td><?php echo $rw->ket ?></td>
+                                        <td>
+                                             <a href="image/file/<?php echo $rw->files ?>">lihat</a>
+                                        </td>
+                                   </tr>
+                              <?php endforeach ?>
+                         </table>
+
+                    </div>
+               </div>
                
                <a href="pesan" class="btn btn-primary"><i class="bx bx-arrow-to-left"></i>
                     Kembali</a>
